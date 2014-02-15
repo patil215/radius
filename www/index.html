@@ -17,6 +17,8 @@
     specific language governing permissions and limitations
     under the License.
 -->
+
+
 <html>
     <head>
         <meta charset="utf-8" />
@@ -24,20 +26,22 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        <title>Radius</title>
+        <link href="css/simple-slider.css" rel="stylesheet" type="text/css" />
+        
+        
     </head>
     <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="phonegap.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
+        <h1 id="logo">Radius Logo</h1>
+        <br><br>
+        <center>
+            <input type="text" placeholder="Search For ..." id="search"/>
+            <input type="text" data-slider="true" id="radius-value"/>
+            <span>Find <span>Cool Things</span><sup id="random">r</sup> in a radius of </span>
+        </center>
+        
+        
+        <script src="js/jquery.js"></script>
+        <script src="js/simple-slider.js"></script>
     </body>
 </html>
