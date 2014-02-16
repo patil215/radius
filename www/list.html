@@ -13,14 +13,24 @@
             <span id="title">My Buckit List</span><br><br>
             <span id="visit"><span id="subtitle">To Visit:</span>
                 <ul id="visit">
-                    <li>CodeDay Austin - 45 points</li>
                 </ul>
             </span><br><br>
             <span id="visited"><span id="subtitle">Visited:</span>
-                <ul id="visited"></ul>
+                <ul id="visited">
+                </ul>
             </span>
         </center>
     </div>
+    <script src="phonegap.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/lodash.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        
+        for (i = 0; i < buckit.list.length; ++i) {
+            $("#visit").html($("#visit").html + " <li>" + buckit.list[i] + "<\li> ");
+        }
+    </script>
 </body>
 
 </html>

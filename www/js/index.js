@@ -1,4 +1,6 @@
 var places;
+buckit = new PersistentList("buckit");
+done = new PersistentList("done");
 
 function getMap(distance) {
     getLocation();
@@ -15,9 +17,17 @@ function displayInfo(data) {
     var img = data.icon;
     var name = data.name;
     var vac = data.vicinity;
-    var string = '<img src="' + img + '" height="50px" width="50px"><div id="loc-text"><span id="loc-name">' + name + '</span><br><span id="loc-vac">' + vac + '</span></div><button onclick="addItem(' + data + ');">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.share(\'Im planning on going to' + name + '\')">Share this location</button>';
+    var string = '<img src="' + img + '" height="50px" width="50px"><div id="loc-text"><span id="loc-name">' + name + '</span><br><span id="loc-vac">' + vac + '</span></div><button id="add">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.share(\'Im planning on going to' + name + '\')">Share this location</button><button id="cancel">Cancel</button>';
     $('#current-location').html(string);
+    $("#add").click(function() {
+        buckit.add(data);
+        $('#current-location').html("");
+    });
+    $("#cancel").click(function() {
+        $('#current-location').html("");
+    });
 }
+
 
 function sizeBox() {
     document.getElementById('search-term').size = document.getElementById('search-term').value.length + 3;
@@ -37,13 +47,14 @@ function labelMap(map, distance) {
     }
 }
 
-function BuckitList() {
+function PersistentList(name) {
+    this.name = name;
     this.list = [];
     this.writeToFile = function () {
-        localStorage.setItem("bucket_list", JSON.stringify(this.list));
+        localStorage.setItem(this.name, JSON.stringify(this.list));
     };
     this.readFromFile = function () {
-        if (localStorage.getItem("bucket_list") === null) {
+        if (localStorage.getItem(this.name) === null) {
             this.writeToFile()
         }
         this.list = JSON.parse(localStorage.getItem("bucket_list"));
