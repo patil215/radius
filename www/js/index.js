@@ -1,3 +1,4 @@
+var places;
 function getMap(distance){
     getLocation();
     
@@ -8,8 +9,8 @@ function getMap(distance){
     
     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     
-    var g = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance);
-    labelMap(g.results, map);
+    
+    labelMap(map, distance);
     
     $('#current-location').html("Click on a marker to get more info about a location.");
 }
@@ -23,15 +24,17 @@ function displayInfo(data){
 }
 
 
-function labelMap(places, map){
-    for(i = 0; i < places.length; ++i) {
-        var latlon = new google.maps.LatLng(places[i].geometry.location.lat, places[i].geometry.location.lng);
+function labelMap(map, distance){
+    places = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance);
+    for(i = 0; i < places.results.length; ++i) {
+        place = places.results[i];
+        var latlon = new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng);
         var marker = new google.maps.Marker({
             position: latlon,
-            title:"Hello World!",
+            title: place.name,
             map:map,
         });
-        //marker.setMap();
+        google.maps.event.addListener(marker, 'click', _.partial(displayInfo, place));
     }
 }
 
