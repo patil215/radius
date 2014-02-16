@@ -19,6 +19,9 @@ function displayInfo(data) {
     $('#current-location').html(string);
 }
 
+function sizeBox() {
+    document.getElementById('search-term').size = document.getElementById('search-term').value.length + 3;
+}
 
 function labelMap(map, distance) {
     places = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance);
@@ -34,7 +37,7 @@ function labelMap(map, distance) {
     }
 }
 
-function BucketList() {
+function BuckitList() {
     this.list = [];
     this.writeToFile = function () {
         localStorage.setItem("bucket_list", JSON.stringify(this.list));
@@ -58,10 +61,6 @@ function BucketList() {
         this.writeToFile();
     };
     this.readFromFile();
-}
-
-function sizeBox() {
-    document.getElementById('search-term').size = document.getElementById('search-term').value.length + 3;
 }
 
 function PlaceList(lat, lon, r) {
@@ -117,26 +116,17 @@ var currentPosition = {
     timetsamp: 0,
 }
 
-    function getLocation() {
-        console.log("Device ready!");
-        navigator.geolocation.getCurrentPosition(function (position) { // on success
-            currentPosition = position;
-            refreshed += 1;
-            console.log(currentPosition.timestamp);
-            /*
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude;
-        var altitude = positions.coords.accuracy;
-        var coordAccuracy = position.coords.accuracy;
-        var altitudeAccuracy = position.coords.altitudeAccuracy;
-        var heading = position.coords.heading;
-        var speed = position.coords.speed;
-        */
-        }, function () { // on failure
-            console.log("Phone Gap location API failed");
-            console.log("code: " + error.code);
-            console.log("message: " + error.message);
-        });
-    }
+function getLocation() {
+    console.log("Device ready!");
+    navigator.geolocation.getCurrentPosition(function (position) { // on success
+        currentPosition = position;
+        refreshed += 1;
+        console.log(currentPosition.timestamp);
+    }, function () { // on failure
+        console.log("Phone Gap location API failed");
+        console.log("code: " + error.code);
+        console.log("message: " + error.message);
+    });
+}
 document.addEventListener("deviceready", getLocation, false);
 console.log("Waiting for device to be ready...");
