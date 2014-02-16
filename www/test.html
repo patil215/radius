@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <script>
+    function log(message) {
+        $("#error").html($("#error").html() + message + " <br />\n");
+    }
+    </script>
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/index.js"></script>
     <script>
@@ -13,7 +18,7 @@
             $("#location").click(function() {
                 getLocation();
                 setTimeout(function() {
-                    console.log('hi');
+                    log("Ready or not, location is being checked");
                     $("#longitude").val("" + currentPosition.coords.longitude);                
                     $("#latitude").val("" + currentPosition.coords.latitude);
                 }, 500);
@@ -29,5 +34,7 @@
     Radius: <input type="text" id="radius" value="1000" /><br />
     <button id="places">Get places</button><br />
     <p id="output">Nothing here yet!</p>
+    <p id="error">No errors! <br />
+    </p>
 </body>
 </html>

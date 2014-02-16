@@ -34,12 +34,12 @@ function PlaceList(lat, lon, r) {
             },
             success: function(data) {
                 if (data.status != "OK") {
-                    console.log("No data sent back");
+                    log("No data sent back");
                 }
                 thisOuterObject.results = data.results;
             },
             fail: function(data) {
-                console.log("AJAX Google Place API request failed");
+                log("AJAX Google Place API request failed");
             },
         });
     };
@@ -67,11 +67,11 @@ var currentPosition = {
 function getLocation() {
     var currentPosition;
     function onDeviceReady() {
-        console.log("Device ready!");
+        log("Device ready!");
         navigator.geolocation.getCurrentPosition(function() { // on success
             currentPosition = position;
             refreshed += 1;
-            console.log(currentPosition.timestamp);
+            log(currentPosition.timestamp);
             /*
             var lat = position.coords.latitude;
             var lon = position.coords.longitude;
@@ -82,11 +82,11 @@ function getLocation() {
             var speed = position.coords.speed;
             */
         }, function() { // on failure
-            console.log("Phone Gap location API failed");
-            console.log("code: " + error.code);
-            console.log("message: " + error.message);
+            log("Phone Gap location API failed");
+            log("code: " + error.code);
+            log("message: " + error.message);
         });
     }
     document.addEventListener("deviceready", onDeviceReady, false);
-    console.log("Waiting for device to be ready...");
+    log("Waiting for device to be ready...");
 }
