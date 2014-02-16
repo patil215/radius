@@ -1,9 +1,10 @@
 var places;
 var buckit;
-var done;    buckit = new PersistentList("buckit");
-    done = new PersistentList("done");
+var done;
+buckit = new PersistentList("buckit");
+done = new PersistentList("done");
 
-document.addEventListener("deviceready", function() {
+document.addEventListener("deviceready", function () {
     buckit = new PersistentList("buckit");
     done = new PersistentList("done");
 }, false);
@@ -11,7 +12,7 @@ document.addEventListener("deviceready", function() {
 
 function getMap(distance) {
     var searchterm = $('#search-term').val();
-    
+
     getLocation();
     var mapOptions = {
         center: new google.maps.LatLng(currentPosition.coords.latitude, currentPosition.coords.longitude),
@@ -26,18 +27,18 @@ function displayInfo(data) {
     var img = data.icon;
     var name = data.name;
     var vac = data.vicinity;
-    if (vac == undefined){
-        vac = data.formatted_address;   
+    if (vac == undefined) {
+        vac = data.formatted_address;
     }
-    var string = '<img src="' + img + '" height="50px" width="50px"><div id="loc-text"><span id="loc-name">' + name + '</span><br><span id="loc-vac">' + vac + '</span></div><button id="add">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.shareViaFacebook(\'I\m planning on going to '+name+'\', null, null, console.log(\'share ok\'), function(errormsg){alert(errormsg)})">Share this location</button><button id="cancel">Cancel</button>';
+    var string = '<img src="' + img + '" height="50px" width="50px"><div id="loc-text"><span id="loc-name">' + name + '</span><br><span id="loc-vac">' + vac + '</span></div><button id="add">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.shareViaFacebook(\'I\m planning on going to ' + name + '\', null, null, console.log(\'share ok\'), function(errormsg){alert(errormsg)})">Share this location</button><button id="cancel">Cancel</button>';
     $('#current-location').html(string);
-    $("#add").click(function() {
+    $("#add").click(function () {
         buckit.add(data);
         $('#current-location').html("");
     });
-    $("#cancel").click(function() {
+    $("#cancel").click(function () {
         $('#current-location').html("");
-    }); 
+    });
 }
 
 
@@ -63,7 +64,7 @@ function labelMap(map, distance, search) {
 function PersistentList(name) {
     this.name = name;
     this.list = [];
-    this.loads = function(string) {
+    this.loads = function (string) {
         this.list = JSON.parse(string);
     };
     this.load = function () {
@@ -105,48 +106,54 @@ function PlaceList(lat, lon, r, search) {
         var radius = "" + this.r;
         var key = "AIzaSyDeXYN2gBD6YUlIAEYOjSuKRQMbcuEPVOw";
         old_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?sensor=true&location=" + location + "&radius=" + radius + "&key=" + key;
-    if (search == 'Cool Places'){
-       $.ajax({
-            url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-            async: false,
-            data: {
-                key: key,
-                location: location,
-                radius: radius,
-                sensor: "true",
-            },
-            success: function (data) {
-                if (data.status != "OK") {
-                    console.log("No data sent back");
-                }
-                thisOuterObject.results = data.results;
-            },
-            fail: function (data) {
-                console.log("AJAX Google Place API request failed");
-            },
-        });  
-    } else {
-        $.ajax({
-            url: "https://maps.googleapis.com/maps/api/place/textsearch/json",
-            async: false,
-            data: {
-                key: key,
-                location: location,
-                radius: radius,
-                sensor: "true",
-                query: encodeURIComponent(search)
-            },
-            success: function (data) {
-                if (data.status != "OK") {
-                    console.log("No data sent back");
-                }
-                thisOuterObject.results = data.results;
-            },
-            fail: function (data) {
-                console.log("AJAX Google Place API request failed");
-            },
-        });
-    }
+        if (search == 'Cool Places') {
+            $.ajax({
+                url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+                async: false,
+                data: {
+                    key: key,
+                    location: location,
+                    radius: radius,
+                    sensor: "true",
+                },
+                success: function (data) {
+                    if (data.status != "OK") {
+                        console.log("No data sent back");
+                    }
+                    thisOuterObject.results = data.results;
+                },
+                fail: function (data) {
+                    console.log("AJAX Google Place API request failed");
+                },
+            });
+        } else {
+            $.ajax({
+                url: "https://maps.googleapis.com/maps/api/place/textsearch/json",
+                async: false,
+                data: {
+                    key: key,
+                    location: location,
+                    radius: radius,
+                    sensor: "true",
+                    query: encodeURIComponent(search)
+                },
+                success: function (data) {
+                    if (data.status != "OK") {
+                        console.log("No data sent back");
+                    }
+                    thisOuterObject.results = data.results;
+                },
+                fail: function (data) {
+                    console.log("AJAX Google Place API request failed");
+                },
+            });
+        }
+        
+        for (i = 0; i < this.results.length; ++i) {
+            if (this.results[i].rating === undefined) {
+                this.results[i].rating = Math.floor(Math.random() * (35 - 15) + 15);
+            }
+        }
     };
 
     this.toString = function () {
@@ -169,17 +176,17 @@ var currentPosition = {
     timetsamp: 0,
 }
 
-function getLocation() {
-    console.log("Device ready!");
-    navigator.geolocation.getCurrentPosition(function (position) { // on success
-        currentPosition = position;
-        refreshed += 1;
-        console.log(currentPosition.timestamp);
-    }, function () { // on failure
-        console.log("Phone Gap location API failed");
-        console.log("code: " + error.code);
-        console.log("message: " + error.message);
-    });
-}
+    function getLocation() {
+        console.log("Device ready!");
+        navigator.geolocation.getCurrentPosition(function (position) { // on success
+            currentPosition = position;
+            refreshed += 1;
+            console.log(currentPosition.timestamp);
+        }, function () { // on failure
+            console.log("Phone Gap location API failed");
+            console.log("code: " + error.code);
+            console.log("message: " + error.message);
+        });
+    }
 document.addEventListener("deviceready", getLocation, false);
 console.log("Waiting for device to be ready...");
