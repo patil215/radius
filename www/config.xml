@@ -5,7 +5,7 @@
         Find Great places within a Radius!
     </description>
     <author email="ben@helloben.co" href="http://helloben.co">
-        Codeday Team
+        Radius Team
     </author>
     <feature name="http://api.phonegap.com/1.0/device" />
     <preference name="permissions" value="none" />
