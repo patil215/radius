@@ -38,22 +38,10 @@
             var total = 0;
             for (i = 0; i < buckit.list.length; ++i) {
                 place = buckit.list[i]
-<<<<<<< HEAD
-                    var output = " <li> " + place.name + ", " + place.rating * 10 + " Points" + ' <button class="remove" id="' + i + '">Remove</button> </li> ';
-                    if (place.visited) {
-                        output2 += output;
-                        total += place.rating*10
-                    } else {
-                        output1 += output;
-                    }
-                    $(".remove#" + i).click(function() {
-                        buckit.remove(buckit.list[i]);
-                        updateList();
-                    });
-=======
                 var output = " <li> " + place.name + ", " + place.rating * 10 + " Points" + ' <button class="remove" id="' + i + '">Remove</button> </li> ';
                 if (place.visited) {
                     output2 += output;
+                    total += place.rating * 10
                 } else {
                     output1 += output;
                 }
@@ -61,7 +49,6 @@
                     buckit.remove(buckit.list[i]);
                     updateList();
                 });
->>>>>>> a40a415ec8d99f11f553e8225c1550f99c889c24
             }
             $("#visit").html(output1);
             $("#visited").html(output2);
