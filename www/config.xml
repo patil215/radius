@@ -47,7 +47,6 @@
     <gap:splash gap:platform="ios" height="1024" src="res/screen/ios/screen-ipad-portrait.png" width="768" />
     <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
-    <access origin="http://127.0.0.1*" />
     <access origin="*" />
     
     <feature name="org.apache.cordova.facebook.Connect">
@@ -61,9 +60,4 @@
 <feature name="Geolocation">
     <param name="android-package" value="org.apache.cordova.GeoBroker" />
 </feature>
-    
-    
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 </widget>
