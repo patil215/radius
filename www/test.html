@@ -6,23 +6,28 @@
     <script>
         var places;
         $(document).ready(function() {
-            $("#submit").click(function() {
-                places = get_places($("#location").val(), $("#radius").val());
-                console.log("Filling in output with places");
-                var output = "";
-                for (i = 0; i < places.length; ++i) {
-                    output += places[i].name + " <br /> ";
-                }
-                $("#output").html(output);
+            $("#places").click(function() {
+                places = new PlaceList($("#latitude").val(), $("#longitude").val(), $("#radius").val());
+                $("#output").html(places.toString());
+            });
+            $("#location").click(function() {
+                getLocation();
+                setTimeout(function() {
+                    console.log('hi');
+                    $("#longitude").val("" + currentPosition.coords.longitude);                
+                    $("#latitude").val("" + currentPosition.coords.latitude);
+                }, 500);
             });
         });
     </script>
 </head>
 <body>
     <h1>Hello World</h1>
-    Location: <input type="text" id="location" value="30.2955,-97.8133"/><br />
+    <button id="location">Get location</button><br />
+    Latitude: <input type="text" id="latitude" /><br />
+    Longitude: <input type="text" id="longitude" /><br />
     Radius: <input type="text" id="radius" value="1000" /><br />
-    <button id="submit">Click Me!</button><br />
+    <button id="places">Get places</button><br />
     <p id="output">Nothing here yet!</p>
 </body>
 </html>
