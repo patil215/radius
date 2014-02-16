@@ -20,7 +20,7 @@ function getMap(distance) {
         zoom: 13
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-    labelMap(map, distance);
+    labelMap(map, distance, searchterm);
     $('#current-location').html("Click on a marker to get more info about a location.");
 }
 
@@ -44,8 +44,8 @@ function sizeBox() {
     document.getElementById('search-term').size = document.getElementById('search-term').value.length + 3;
 }
 
-function labelMap(map, distance) {
-    places = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance);
+function labelMap(map, distance, search) {
+    places = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance, search);
     for (i = 0; i < places.results.length; ++i) {
         place = places.results[i];
         var latlon = new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng);
@@ -91,7 +91,7 @@ function PersistentList(name) {
     this.load();
 }
 
-function PlaceList(lat, lon, r) {
+function PlaceList(lat, lon, r, search) {
     this.lat = lat;
     this.lon = lon;
     this.r = r;
@@ -111,6 +111,7 @@ function PlaceList(lat, lon, r) {
                 location: location,
                 radius: radius,
                 sensor: "true",
+                query: search
             },
             success: function (data) {
                 if (data.status != "OK") {
