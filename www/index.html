@@ -32,16 +32,20 @@
         
     </head>
     <body>
-        <div id="header"></div>
-        <br><br>
-        <center>
-            <input type="text" placeholder="Search For ..." id="search"/>
-            <input type="text" data-slider="true" id="radius-value"/>
-            <span>Find <span id="thing">Cool Things</span>in a radius of <span id="radius"></span>
-        </center>
+        <div id="header">
+            <center><span id="welcome">Welcome to Radius</span><br>
+            <span id="search">Search for <input id="search-term" value="Cool Places"/> within:</span></center>
+            <div id="distances">
+                <div class="dist">Walking Distance</div>
+                <div class="dist">Bike Distance</div>
+                <div class="dist">Driving Distance</div>
+                <div class="dist">Custom Distance</div>
+            </div>
+        </div>
         
         
         <script src="js/jquery.js"></script>
         <script src="js/simple-slider.js"></script>
+        <script src="js/index.js" onKeyUp="sizeBox();"></script>
     </body>
 </html>
