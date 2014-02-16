@@ -48,10 +48,12 @@
     <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
     <access origin="*" />
-    
-    <feature name="org.apache.cordova.facebook.Connect">
-        <param name="ios-package" value="FacebookConnectPlugin" />
+ 
+    <feature name="debug-server" required="true">
+        <param name="domain" value="http://debug.custom.com"/>
+        <param name="key" value="some_unique_key"/>
     </feature>
+<gap:plugin name="org.apache.cordova.geolocation" />
     
 <feature name="Geolocation">
     <param name="ios-package" value="CDVLocation" />
