@@ -37,18 +37,18 @@
             var output2 = "";
             for (i = 0; i < buckit.list.length; ++i) {
                 place = buckit.list[i]
-                    var output = " <li> " + place.name + ", " + place.rating * 10 + " Points" + ' <button class="remove" id="' + i + '">Remove</button> </li> ';
-                    if (place.visited) {
-                        output2 += output;
-                    } else {
-                        output1 += output;
-                    }
-                    $(".remove#" + i).click(function() {
-                        buckit.remove(buckit.list[i]);
-                        updateList();
-                    });
+                var output = " <li> " + place.name + ", " + place.rating * 10 + " Points" + ' <button class="remove" id="' + i + '">Remove</button> </li> ';
+                if (place.visited) {
+                    output2 += output;
+                } else {
+                    output1 += output;
+                }
+                $(".remove#" + i).click(function() {
+                    buckit.remove(buckit.list[i]);
+                    updateList();
+                });
             }
-            $("#visit").html(output);
+            $("#visit").html(output1);
             $("#visited").html(output2);
             for (i = 0; i < buckit.list.length; ++i) {
                 f = function(idx) {
@@ -62,6 +62,8 @@
         $(document).ready(function() {
             updateBuckitList();
         });
+        //currentPosition.coords.longitude = buckit.list[0].geometry.location.lng
+        //currentPosition.coords.latitude = buckit.list[0].geometry.location.lat
     </script>
 </body>
 
