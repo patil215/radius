@@ -49,8 +49,8 @@
         <div id="current-location">
             Click on a Radius
         </div>
-        <a id="view-list" href="list.html">View my list</a>
-        <span align="right" id="refresh-page" onclick="checkVisited()">Refresh</span>
+        <a id="view-list" href="list.html" style="float:left;">View buckit list</a>
+        <span id="refresh-page" onclick="checkVisited()" style="float:right;cursor:pointer;cursor:hand;">Refresh app position</span>
         <div id="custom"><center>
             <input id="custom-val" placeholder="Insert Radius (meters)" type="number"><button onclick="submitCustom()">Submit</button></center></div>
     </div>
@@ -73,6 +73,9 @@
             getMap(m);
             $('#custom').slideUp(500);
         }
+        $("#search-term").focus(function() {
+            $("#search-term").val("");
+        });
         
     </script>
     <script src="js/index.js"></script>
