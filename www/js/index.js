@@ -176,7 +176,7 @@ function checkVisited() {
         var b2 = buckit.list[i].geometry.location.lng
         d = Math.sqrt(Math.pow(a1 - a2, 2) + Math.pow(b1 - b2, 2));
         console.log(i + ": " + d);
-        if (d < 0.03) {
+        if (d < 0.005) {
             console.log("success");
             buckit.list[i].visited = true;
             buckit.dump();buckit.load();
