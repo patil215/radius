@@ -1,39 +1,50 @@
 function getMap(distance){
     getLocation();
+    
+    var mapOptions = {
+        center: new google.maps.LatLng(currentPosition.coords.latitude, currentPosition.coords.longitude),
+        zoom: 13
+    };
+    
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    
     var g = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance);
-    var map = initialize(currentPosition.coords.latitude, currentPosition.coords.longitude);
     labelMap(g.results, map);
+<<<<<<< HEAD
     console.log(g.results)
+=======
+    
+>>>>>>> 970faec49f5c9c88a1d124d80043a19a514da155
     $('#current-location').html("Click on a marker to get more info about a location.");
 }
 
 function labelMap(places, map){
-    var c = 0;
-    var latlon;
-    while(c < 20){
-        console.log(places[c].geometry.location.lat + " " +  places[c].geometry.location.lng);
-        latlon = new google.maps.LatLng(places[c].geometry.location.lat, places[c].geometry.location.lng); //Create new label
+    for(i = 0; i < places.length; ++i) {
+        //console.log(places[i].geometry.location.lat + " " +  places[i].geometry.location.lng);
+        var latlon = new google.maps.LatLng(places[i].geometry.location.lat, places[i].geometry.location.lng);
         var marker = new google.maps.Marker({
-              position: latlon,
-              title:"Hello World!",
-                map:map
-          });
-        marker.setMap();
-        c++;
+            position: latlon,
+            title:"Hello World!",
+            map:map,
+        });
+        //marker.setMap();
     }
 }
 
-function initialize(lat,lon) {
-        var mapOptions = {
-          center: new google.maps.LatLng(lat, lon),
-          zoom: 13
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-    return map
+function BucketList() {
+    this.list = [];
+    this.writeToFile = function() {
+        
+    };
+    this.readFromFile = function() {
+        
+    };
+    this.add = function() {
+        
+    };
 }
 
-function sizeBox(){
+function sizeBox() {
     document.getElementById('search-term').size = document.getElementById('search-term').value.length + 3;
 }
 
@@ -76,7 +87,7 @@ function PlaceList(lat, lon, r) {
             output += this.results[i].name + " <br /> ";
         }
         return output;
-    }
+    };
     
     this.refresh();
 }
