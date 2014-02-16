@@ -170,12 +170,13 @@ function PlaceList(lat, lon, r, search) {
 function checkVisited() {
     var a1 = currentPosition.coords.latitude
     var b1 = currentPosition.coords.longitude
+    console.log(a1 + ', ' + b1);
     for (i = 0; i < buckit.list.length; ++i) {
         var a2 = buckit.list[i].geometry.location.lat
         var b2 = buckit.list[i].geometry.location.lng
         d = Math.sqrt(Math.pow(a1 - a2, 2) + Math.pow(b1 - b2, 2));
         console.log(i + ": " + d);
-        if (d < 0.003) {
+        if (d < 0.03) {
             console.log("success");
             buckit.list[i].visited = true;
             buckit.dump();buckit.load();
