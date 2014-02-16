@@ -41,7 +41,7 @@
                 <div class="dist" onclick="doCustom();">Custom Distance</div>
             </div>
             <div id="current-location">
-                <img src="http://placekitten.com/g/50/50"><div id="loc-text"><span id="loc-name">Codeday Austin</span><br><span id="loc-vac">Austin, TX</span></div><button onclick="addItem();">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.share('Im planning on going to Codeday Austin')">Share this location</button>
+                <img src="http://placekitten.com/g/50/50" height="50px" width="50px"><div id="loc-text"><span id="loc-name">Codeday Austin</span><br><span id="loc-vac">Austin, TX</span></div><button onclick="addItem();">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.share('Im planning on going to Codeday Austin')">Share this location</button>
             </div>
         </div>
         
@@ -51,6 +51,16 @@
         <script src="js/SocialSharing.js"></script>
         <script src="js/jquery.js"></script>
         <script src="js/simple-slider.js"></script>
+        <script>
+            function displayInfo(data){
+                var img = data.icon;
+                var name = data.name;
+                var vac = data.vicinity;
+                var string = '<img src="'+img+'" height="50px" width="50px"><div id="loc-text"><span id="loc-name">'+name+'</span><br><span id="loc-vac">'+vac+'</span></div><button onclick="addItem('+data+');">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.share(\'Im planning on going to'+name+'\')">Share this location</button>'
+            }
+                $('#current-location').html(string);
+        </script>
         <script src="js/index.js" ></script>
+        
         </body>
 </html>
