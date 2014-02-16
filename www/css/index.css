@@ -39,7 +39,9 @@ html, body{
     height:40px;
     margin:0px;
     padding:0px;
-    fill: rgba(0, 0, 0, 0.4)
+    fill: rgba(0, 0, 0, 0.4);
+    margin-top:3px;
+    margin-bottom:3px;
 }
 
 #welcome{
@@ -49,10 +51,11 @@ html, body{
 .dist{
     display:inline-block;
     width:25%;
-    margin-right:-3px;
+    margin-right:-5px;
     height:100%;
     color:white;
     text-align:center;
+    border:1px solid white;
 }
 
 #search-term{
