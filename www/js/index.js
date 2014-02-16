@@ -10,11 +10,7 @@ function getMap(distance){
     
     var g = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance);
     labelMap(g.results, map);
-<<<<<<< HEAD
-    console.log(g.results)
-=======
     
->>>>>>> 970faec49f5c9c88a1d124d80043a19a514da155
     $('#current-location').html("Click on a marker to get more info about a location.");
 }
 
