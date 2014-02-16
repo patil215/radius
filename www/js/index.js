@@ -14,9 +14,17 @@ function getMap(distance){
     $('#current-location').html("Click on a marker to get more info about a location.");
 }
 
+function displayInfo(data){
+    var img = data.icon;
+    var name = data.name;
+    var vac = data.vicinity;
+    var string = '<img src="'+img+'" height="50px" width="50px"><div id="loc-text"><span id="loc-name">'+name+'</span><br><span id="loc-vac">'+vac+'</span></div><button onclick="addItem('+data+');">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.share(\'Im planning on going to'+name+'\')">Share this location</button>';
+    $('#current-location').html(string);
+}
+
+
 function labelMap(places, map){
     for(i = 0; i < places.length; ++i) {
-        //console.log(places[i].geometry.location.lat + " " +  places[i].geometry.location.lng);
         var latlon = new google.maps.LatLng(places[i].geometry.location.lat, places[i].geometry.location.lng);
         var marker = new google.maps.Marker({
             position: latlon,
