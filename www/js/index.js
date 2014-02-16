@@ -1,4 +1,10 @@
- function sizeBox(){
+function getMap(distance){
+    getLocation();
+    var g = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance);
+    console.log(g.results);
+}
+
+function sizeBox(){
     document.getElementById('search-term').size = document.getElementById('search-term').value.length + 3;}
 
 
