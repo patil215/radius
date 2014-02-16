@@ -33,13 +33,28 @@
     <script src="js/lodash.min.js"></script>
     <script src="js/index.js"></script>
     <script>
-        $(document).ready(function() {
-        var output = "";
-        for (i = 0; i < buckit.list.length; ++i) {
-            output += " <li> " + buckit.list[i].name + " <//li> ";
-            console.log(output);
+        function updateList() {
+            var output = "";
+            for (i = 0; i < buckit.list.length; ++i) {
+                output += " <li> " + buckit.list[i].name + ' <button class="remove" id="' + i + '">Remove</button> </li> ';
+                $(".remove#" + i).click(function() {
+                    buckit.remove(buckit.list[i]);
+                    updateList();
+                });
+            }
+            $("#visit").html(output);
+            for (i = 0; i < buckit.list.length; ++i) {
+                f = function(idx) {
+                    console.log(idx);
+                    buckit.remove(buckit.list[idx]);
+                    updateList();
+                    console.log();
+                }
+                $(".remove#" + i).click(_.partial(f, i));
+            }
         }
-        $("#visit").html(output);
+        $(document).ready(function() {
+            updateList();
         });
     </script>
 </body>
