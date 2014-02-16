@@ -68,3 +68,8 @@ body{
     background-image:url("../img/sky2.jpg");
     background-repeat:no-repeat;
 }
+
+#map_canvas{
+    height:100%;
+    width:100%;
+}
