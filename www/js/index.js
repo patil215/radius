@@ -2,7 +2,18 @@ function getMap(distance){
     getLocation();
     var g = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance);
     console.log(g.results);
+    initalize(currentPosition.coords.latitude, currentPosition.coords.longitude);
 }
+
+ function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(-34.397, 150.644),
+          zoom: 8
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
 
 function sizeBox(){
     document.getElementById('search-term').size = document.getElementById('search-term').value.length + 3;}
