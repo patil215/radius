@@ -43,6 +43,7 @@
             <div id="current-location">
                 Click on a Radius
             </div>
+            <a id="view-list" href="list.html">View my list</a>
         </div>
         
         <div id="map_canvas"></div>
@@ -50,16 +51,8 @@
         <script src="phonegap.js"></script>
         <script src="js/SocialSharing.js"></script>
         <script src="js/jquery.js"></script>
+        <script src="js/lodash.min.js"></script>
         <script src="js/simple-slider.js"></script>
-        <script>
-            function displayInfo(data){
-                var img = data.icon;
-                var name = data.name;
-                var vac = data.vicinity;
-                var string = '<img src="'+img+'" height="50px" width="50px"><div id="loc-text"><span id="loc-name">'+name+'</span><br><span id="loc-vac">'+vac+'</span></div><button onclick="addItem('+data+');">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.share(\'Im planning on going to'+name+'\')">Share this location</button>'
-            }
-                $('#current-location').html(string);
-        </script>
         <script src="js/index.js" ></script>
         
         </body>
