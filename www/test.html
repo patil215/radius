@@ -5,41 +5,43 @@
     <script>
         function get_places(location, radius) {
             output = {};
+            var key = "AIzaSyDeXYN2gBD6YUlIAEYOjSuKRQMbcuEPVOw";
+            old_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyDeXYN2gBD6YUlIAEYOjSuKRQMbcuEPVOw" + "&location=" + location + "&radius=" + radius + "&sensor=true";
             $.ajax({
-                urL:"http://maps.googleapis.com/maps/api/place/nearbysearch/json",
-                data:{
-                    key: "AIzaSyDeXYN2gBD6YUlIAEYOjSuKRQMbcuEPVOw",
+                url:"https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+                async: false,
+                data: {
+                    key: key,
                     location: location,
                     radius: radius,
                     sensor: "true",
                 },
-                type: "jsonp",
                 success:  function(data) {
-                    console.log("fhil");
-                    output = $.parseJSON(data);
+                    output = data.results;
                 },
                 
             });
-            /// following line for test cases only
-            //output = JSON.parse(document.getElementById('test_data').innerHTML);
-            return output.results;
-        }
-        var places;
-        function test() {
-            places = get_places($("#location").val(), $("#radius").val());
-            output = "";
-            for (var i in places) {
-                output += places[i].name + " <br /> ";
-            }
-            $("#output").html(output);
+            return output;
         }
     </script>
 </head>
 <body>
     <h1>Hello World</h1>
-    Location: <input type="text" id="location" value="(30.2955,-97.8133)"/><br />
+    Location: <input type="text" id="location" value="30.2955,-97.8133"/><br />
     Radius: <input type="text" id="radius" value="1000" /><br />
-    <button onclick="test();" id="submit">Click Me!</button><br />
+    <button id="submit">Click Me!</button><br />
     <p id="output">Nothing here yet!</p>
+    <script>
+        var places;
+        $("#submit").click(function() {
+            places = get_places($("#location").val(), $("#radius").val());
+            console.log("Filling in output with places");
+            var output = "";
+            for (i = 0; i < places.length; ++i) {
+                output += places[i].name + " <br /> ";
+            }
+            $("#output").html(output);
+        });
+    </script>
 </body>
 </html>
