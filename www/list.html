@@ -9,13 +9,20 @@
 <body>
     <div id="holder">
         <center>
-            <br><br>
-            <span id="title">My Buckit List</span><br><br>
-            <span id="visit"><span id="subtitle">To Visit:</span>
+            <br>
+            <br>
+            <span id="title">My Buckit List</span>
+            <br>
+            <br>
+            <span id="visit">
+                <span id="subtitle">To Visit:</span>
                 <ul id="visit">
                 </ul>
-            </span><br><br>
-            <span id="visited"><span id="subtitle">Visited:</span>
+            </span>
+            <br>
+            <br>
+            <span id="visited">
+                <span id="subtitle">Visited:</span>
                 <ul id="visited">
                 </ul>
             </span>
@@ -26,9 +33,14 @@
     <script src="js/lodash.min.js"></script>
     <script src="js/index.js"></script>
     <script>
+        $(document).ready(function() {
+        var output = "";
         for (i = 0; i < buckit.list.length; ++i) {
-            $("#visit").html($("#visit").html + " <li>" + buckit.list[i] + "<\li> ");
+            output += " <li> " + buckit.list[i].name + " <//li> ";
+            console.log(output);
         }
+        $("#visit").html(output);
+        });
     </script>
 </body>
 
