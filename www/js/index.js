@@ -1,18 +1,35 @@
 function getMap(distance){
     getLocation();
     var g = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance);
-    console.log(g.results);
-    initalize(currentPosition.coords.latitude, currentPosition.coords.longitude);
+    map = initialize(currentPosition.coords.latitude, currentPosition.coords.longitude);
+    labelMap(g.results, map);
 }
 
-function initialize() {
-    var mapOptions = {
-        center: new google.maps.LatLng(-34.397, 150.644),
-        zoom: 8
-    };
-    var map = new google.maps.Map(document.getElementById("map_canvas"),  mapOptions);
+function labelMap(places, map){
+    var c = 0;
+    var latlon;
+    while(c < 20){
+        console.log(places[c].geometry.location.lat + " " +  places[c].geometry.location.lng);
+        latlon = new google.maps.LatLng(places[c].geometry.location.lat, places[c].geometry.location.lng); //Create new label
+        var marker = new google.maps.Marker({
+              position: latlon,
+              title:"Hello World!",
+                map:map
+          });
+        marker.setMap();
+        c++;
+    }
 }
-google.maps.event.addDomListener(window, 'load', initialize);
+
+function initialize(lat,lon) {
+        var mapOptions = {
+          center: new google.maps.LatLng(lat, lon),
+          zoom: 13
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+    return map
+}
 
 function sizeBox(){
     document.getElementById('search-term').size = document.getElementById('search-term').value.length + 3;
