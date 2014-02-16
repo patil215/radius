@@ -1,17 +1,12 @@
 var places;
 function getMap(distance){
     getLocation();
-    
     var mapOptions = {
         center: new google.maps.LatLng(currentPosition.coords.latitude, currentPosition.coords.longitude),
         zoom: 13
     };
-    
     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-    
-    
     labelMap(map, distance);
-    
     $('#current-location').html("Click on a marker to get more info about a location.");
 }
 
@@ -41,14 +36,21 @@ function labelMap(map, distance){
 function BucketList() {
     this.list = [];
     this.writeToFile = function() {
-        
+        localStorage.setItem("bucket_list", JSON.stringify(this.list));
     };
     this.readFromFile = function() {
-        
+        this.list = JSON.parse(localStorage.getItem("bucket_list"));
     };
-    this.add = function() {
-        
+    this.add = function(place) {
+        if (this.list.indexOf(place) === -1) {
+            this.list.push(place);
+        }
     };
+    this.remove = function(place) {
+        if (this.list.indexOf(place) !== -1) {
+            this.list.splice(this.list.indexOf(place), 1);
+        }
+    }
 }
 
 function sizeBox() {
