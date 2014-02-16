@@ -1,6 +1,13 @@
 var places;
-buckit = new PersistentList("buckit");
-done = new PersistentList("done");
+var buckit;
+var done;    buckit = new PersistentList("buckit");
+    done = new PersistentList("done");
+
+document.addEventListener("deviceready", function() {
+    buckit = new PersistentList("buckit");
+    done = new PersistentList("done");
+}, false);
+
 
 function getMap(distance) {
     getLocation();
@@ -25,7 +32,7 @@ function displayInfo(data) {
     });
     $("#cancel").click(function() {
         $('#current-location').html("");
-    });
+    }); 
 }
 
 
@@ -50,28 +57,34 @@ function labelMap(map, distance) {
 function PersistentList(name) {
     this.name = name;
     this.list = [];
-    this.writeToFile = function () {
-        localStorage.setItem(this.name, JSON.stringify(this.list));
+    this.loads = function(string) {
+        this.list = JSON.parse(string);
     };
-    this.readFromFile = function () {
+    this.load = function () {
         if (localStorage.getItem(this.name) === null) {
-            this.writeToFile()
+            this.dump();
         }
-        this.list = JSON.parse(localStorage.getItem("bucket_list"));
+        this.loads(localStorage.getItem(this.name));
+    };
+    this.dumps = function () {
+        return JSON.stringify(this.list);
+    }
+    this.dump = function () {
+        localStorage.setItem(this.name, this.dumps());
     };
     this.add = function (place) {
         if (this.list.indexOf(place) === -1) {
             this.list.push(place);
         }
-        this.writeToFile();
+        this.dump();
     };
     this.remove = function (place) {
         if (this.list.indexOf(place) !== -1) {
             this.list.splice(this.list.indexOf(place), 1);
         }
-        this.writeToFile();
+        this.dump();
     };
-    this.readFromFile();
+    this.load();
 }
 
 function PlaceList(lat, lon, r) {
