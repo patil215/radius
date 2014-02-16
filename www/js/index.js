@@ -66,7 +66,7 @@ var currentPosition = {
 
 function getLocation() {
     console.log("Device ready!");
-    navigator.geolocation.getCurrentPosition(function() { // on success
+    navigator.geolocation.getCurrentPosition(function(position) { // on success
         currentPosition = position;
         refreshed += 1;
         console.log(currentPosition.timestamp);
