@@ -134,7 +134,7 @@ function PlaceList(lat, lon, r, search) {
                 location: location,
                 radius: radius,
                 sensor: "true",
-                query: encodeURIComponent(search);
+                query: encodeURIComponent(search)
             },
             success: function (data) {
                 if (data.status != "OK") {
