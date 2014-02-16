@@ -80,7 +80,7 @@ body{
 
 #loc-text{
     display:inline-block;
-    text-align:left;
+    /*text-align:left;*/
     margin:10px;
 }
 
