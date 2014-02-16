@@ -3,6 +3,7 @@ function getMap(distance){
     var g = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance);
     var map = initialize(currentPosition.coords.latitude, currentPosition.coords.longitude);
     labelMap(g.results, map);
+    console.log(g.results)
     $('#current-location').html("Click on a marker to get more info about a location.");
 }
 
