@@ -21,7 +21,7 @@ function displayInfo(data) {
     var img = data.icon;
     var name = data.name;
     var vac = data.vicinity;
-    var string = '<img src="' + img + '" height="50px" width="50px"><div id="loc-text"><span id="loc-name">' + name + '</span><br><span id="loc-vac">' + vac + '</span></div><button id="add">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.share(\'Im planning on going to' + name + '\')">Share this location</button><button id="cancel">Cancel</button>';
+    var string = '<img src="' + img + '" height="50px" width="50px"><div id="loc-text"><span id="loc-name">' + name + '</span><br><span id="loc-vac">' + vac + '</span></div><button id="add">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.shareViaFacebook(\'I\m planning on going to '+name+'\', null, null, console.log(\'share ok\'), function(errormsg){alert(errormsg)})">Share this location</button><button id="cancel">Cancel</button>';
     $('#current-location').html(string);
     $("#add").click(function() {
         buckit.add(data);
