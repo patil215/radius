@@ -99,3 +99,17 @@ body{
 #custom{
     display:none;
 }
+
+#first{
+    border-left:0px;   
+}
+
+#last{
+    border-right:0px;   
+}
+
+#refresh-page{
+    text-align:right;
+    text-decoration:underline;
+    display:inline-block;
+}

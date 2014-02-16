@@ -41,15 +41,16 @@
                 <input id="search-term" value="Cool Places" onKeyUp="sizeBox();" />within:</span>
         </center>
         <div id="distances">
-            <div class="dist" onclick="getMap(3218)">Walking Distance</div>
+            <div id="first" class="dist" onclick="getMap(3218)">Walking Distance</div>
             <div class="dist" onclick="getMap(8046)">Bike Distance</div>
             <div class="dist" onclick="getMap(32186)">Driving Distance</div>
-            <div class="dist" onclick="$('#custom').slideToggle(500);">Custom Distance</div>
+            <div id="last" class="dist" onclick="$('#custom').slideToggle(500);">Custom Distance</div>
         </div>
         <div id="current-location">
             Click on a Radius
         </div>
         <a id="view-list" href="list.html">View my list</a>
+        <span align="right" id="refresh-page" onclick="checkVisited()">Refresh</span>
         <div id="custom"><center>
             <input id="custom-val" placeholder="Insert Radius (meters)" type="number"><button onclick="submitCustom()">Submit</button></center></div>
     </div>
