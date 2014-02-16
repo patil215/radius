@@ -1,7 +1,13 @@
 @import url(http://fonts.googleapis.com/css?family=Lato);
+@import url(http://fonts.googleapis.com/css?family=Oswald);
+
+@font-face {
+	font-family: cool_font;
+	src: url('Canter Bold 3D.otf');
+}
 
 *{
-    font-family: 'Lato', sans-serif;   
+    font-family: 'Oswald', sans-serif;
 }
 
 html, body{
@@ -34,6 +40,7 @@ html, body{
 #welcome{
     text-align:center;
     font-size:30px;
+    font-family: 'Lato', sans-serif;
 }
 .dist{
     display:inline-block;
