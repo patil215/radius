@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>View Your Bukkit List</title>
+    <title>View Your Buckit List</title>
     <link rel="stylesheet" type="text/css" href="css/list.css">
 </head>
 
@@ -19,9 +19,10 @@
             </span>
             <br>
             <br>
-            <h1>Visited (Total Points - <span id="total-score"></span>):</h1>
+            <h1>Visited (Total Points -
+                <span id="total-score"></span>):</h1>
             <span id="visited">
-                <span id="subtitle">Visited </span>
+                <span id="subtitle">Visited</span>
                 <ul id="visited">
                 </ul>
             </span>
@@ -45,19 +46,25 @@
                 } else {
                     output1 += output;
                 }
-                $(".remove#" + i).click(function() {
-                    buckit.remove(buckit.list[i]);
-                    updateList();
-                });
+               /* f = function(idx) {
+                    console.log(idx);
+                    if (confirm("Delete '" + buckit.list[idx].name + "' from the list?")) {
+                        buckit.remove(buckit.list[idx]);
+                        updateList();
+                    }
+                }
+                $(".remove#" + i).click(_.partial(f, i));*/
             }
             $("#visit").html(output1);
             $("#visited").html(output2);
             $("#total-score").html(total);
             for (i = 0; i < buckit.list.length; ++i) {
                 f = function(idx) {
-                    buckit.remove(buckit.list[idx]);
-                    updateBuckitList();
-                    console.log();
+                    console.log(idx);
+                    if (confirm("Delete '" + buckit.list[idx].name + "' from the list?")) {
+                        buckit.remove(buckit.list[idx]);
+                        updateBuckitList();
+                    }
                 }
                 $(".remove#" + i).click(_.partial(f, i));
             }
