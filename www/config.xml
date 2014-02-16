@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8' ?>
 <widget id="co.helloben.radius" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Radius</name>
     <description>
@@ -48,15 +48,23 @@
     <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />-->
     <access origin="*" />
- 
-<gap:plugin name="org.apache.cordova.geolocation" />
-<gap:plugin name="nl.x-services.plugins.socialsharing" />
-    
-<feature name="Geolocation">
-    <param name="ios-package" value="CDVLocation" />
-</feature>
- 
-<feature name="Geolocation">
-    <param name="android-package" value="org.apache.cordova.GeoBroker" />
-</feature>
+
+    <gap:plugin name="org.apache.cordova.geolocation" />
+    <gap:plugin name="nl.x-services.plugins.socialsharing" />
+    <!-- for iOS -->
+    <feature name="SocialSharing">
+        <param name="ios-package" value="SocialSharing" />
+    </feature>
+    <!-- for Android -->
+    <feature name="SocialSharing">
+        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+    </feature>
+
+    <feature name="Geolocation">
+        <param name="ios-package" value="CDVLocation" />
+    </feature>
+
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.GeoBroker" />
+    </feature>
 </widget>
