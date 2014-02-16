@@ -151,7 +151,7 @@ function PlaceList(lat, lon, r, search) {
         for (i = 0; i < this.results.length; ++i) {
             this.results[i].visited = false;
             if (this.results[i].rating === undefined) {
-                this.results[i].rating = Math.floor(Math.random() * (35 - 15) + 15);
+                this.results[i].rating = Math.random() * (3.5 - 1.5) + 1.5;
             }
         }
     };
