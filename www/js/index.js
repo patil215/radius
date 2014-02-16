@@ -11,9 +11,7 @@ document.addEventListener("deviceready", function() {
 
 function getMap(distance) {
     var searchterm = $('#search-term').val();
-    if (searchterm == 'Cool Places'){
-        searchterm = '';   
-    }
+    
     getLocation();
     var mapOptions = {
         center: new google.maps.LatLng(currentPosition.coords.latitude, currentPosition.coords.longitude),
@@ -28,6 +26,9 @@ function displayInfo(data) {
     var img = data.icon;
     var name = data.name;
     var vac = data.vicinity;
+    if (vac == undefined){
+        vac = data.formatted_address;   
+    }
     var string = '<img src="' + img + '" height="50px" width="50px"><div id="loc-text"><span id="loc-name">' + name + '</span><br><span id="loc-vac">' + vac + '</span></div><button id="add">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.shareViaFacebook(\'I\m planning on going to '+name+'\', null, null, console.log(\'share ok\'), function(errormsg){alert(errormsg)})">Share this location</button><button id="cancel">Cancel</button>';
     $('#current-location').html(string);
     $("#add").click(function() {
@@ -46,6 +47,7 @@ function sizeBox() {
 
 function labelMap(map, distance, search) {
     places = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance, search);
+    console.log(places);
     for (i = 0; i < places.results.length; ++i) {
         place = places.results[i];
         var latlon = new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng);
@@ -103,8 +105,29 @@ function PlaceList(lat, lon, r, search) {
         var radius = "" + this.r;
         var key = "AIzaSyDeXYN2gBD6YUlIAEYOjSuKRQMbcuEPVOw";
         old_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?sensor=true&location=" + location + "&radius=" + radius + "&key=" + key;
-        $.ajax({
+    if (search == 'Cool Places'){
+       $.ajax({
             url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+            async: false,
+            data: {
+                key: key,
+                location: location,
+                radius: radius,
+                sensor: "true",
+            },
+            success: function (data) {
+                if (data.status != "OK") {
+                    console.log("No data sent back");
+                }
+                thisOuterObject.results = data.results;
+            },
+            fail: function (data) {
+                console.log("AJAX Google Place API request failed");
+            },
+        });  
+    } else {
+        $.ajax({
+            url: "https://maps.googleapis.com/maps/api/place/textsearch/json",
             async: false,
             data: {
                 key: key,
@@ -123,6 +146,7 @@ function PlaceList(lat, lon, r, search) {
                 console.log("AJAX Google Place API request failed");
             },
         });
+    }
     };
 
     this.toString = function () {
