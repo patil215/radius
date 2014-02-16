@@ -1,13 +1,17 @@
 function getMap(distance){
     getLocation();
+    
     var mapOptions = {
         center: new google.maps.LatLng(currentPosition.coords.latitude, currentPosition.coords.longitude),
         zoom: 13
     };
+    
     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    
     var g = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance);
-    //map = initialize(currentPosition.coords.latitude, currentPosition.coords.longitude);
     labelMap(g.results, map);
+    
+    $('#current-location').html("Click on a marker to get more info about a location.");
 }
 
 function labelMap(places, map){
