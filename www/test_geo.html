@@ -1,11 +1,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <script>
-    function log(message) {
-        $("#error").html($("#error").html() + message + " <br />\n");
-    }
-    </script>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/index.js"></script>
@@ -19,7 +14,7 @@
             $("#location").click(function() {
                 getLocation();
                 setTimeout(function() {
-                    log("Ready or not, location is being checked");
+                    console.log("Ready or not, location is being checked");
                     $("#longitude").val("" + currentPosition.coords.longitude);                
                     $("#latitude").val("" + currentPosition.coords.latitude);
                 }, 500);
