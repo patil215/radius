@@ -2,27 +2,20 @@
 <html lang="en">
 <head>
     <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/common.js"></script>
     <script>
-        function get_places(location, radius) {
-            output = {};
-            var key = "AIzaSyDeXYN2gBD6YUlIAEYOjSuKRQMbcuEPVOw";
-            old_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyDeXYN2gBD6YUlIAEYOjSuKRQMbcuEPVOw" + "&location=" + location + "&radius=" + radius + "&sensor=true";
-            $.ajax({
-                url:"https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-                async: false,
-                data: {
-                    key: key,
-                    location: location,
-                    radius: radius,
-                    sensor: "true",
-                },
-                success:  function(data) {
-                    output = data.results;
-                },
-                
+        var places;
+        $(document).ready(function() {
+            $("#submit").click(function() {
+                places = get_places($("#location").val(), $("#radius").val());
+                console.log("Filling in output with places");
+                var output = "";
+                for (i = 0; i < places.length; ++i) {
+                    output += places[i].name + " <br /> ";
+                }
+                $("#output").html(output);
             });
-            return output;
-        }
+        });
     </script>
 </head>
 <body>
@@ -31,17 +24,5 @@
     Radius: <input type="text" id="radius" value="1000" /><br />
     <button id="submit">Click Me!</button><br />
     <p id="output">Nothing here yet!</p>
-    <script>
-        var places;
-        $("#submit").click(function() {
-            places = get_places($("#location").val(), $("#radius").val());
-            console.log("Filling in output with places");
-            var output = "";
-            for (i = 0; i < places.length; ++i) {
-                output += places[i].name + " <br /> ";
-            }
-            $("#output").html(output);
-        });
-    </script>
 </body>
 </html>
