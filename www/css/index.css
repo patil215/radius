@@ -73,3 +73,17 @@ body{
     height:100%;
     width:100%;
 }
+
+#current-location{
+    text-align:center;
+}
+
+#loc-text{
+    display:inline-block;
+    text-align:left;
+    margin:10px;
+}
+
+#loc-name{   
+    font-size:24px;
+}

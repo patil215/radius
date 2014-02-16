@@ -50,6 +50,7 @@
     <access origin="*" />
  
 <gap:plugin name="org.apache.cordova.geolocation" />
+<gap:plugin name="nl.x-services.plugins.socialsharing" />
     
 <feature name="Geolocation">
     <param name="ios-package" value="CDVLocation" />
