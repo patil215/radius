@@ -63,6 +63,7 @@ var currentPosition = {
     },
     timetsamp: 0,
 }
+currentPositon = {};
 
 function getLocation() {
     var currentPosition;
