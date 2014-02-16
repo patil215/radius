@@ -11,9 +11,7 @@
         <center>
             <br>
             <br>
-            <span id="title">My Buckit List</span>
-            <br>
-            <br>
+            <h1>Buckit List</h1>
             <span id="visit">
                 <span id="subtitle">To Visit:</span>
                 <ul id="visit">
@@ -21,6 +19,7 @@
             </span>
             <br>
             <br>
+            <h1>Visited</h1>
             <span id="visited">
                 <span id="subtitle">Visited:</span>
                 <ul id="visited">
@@ -34,15 +33,23 @@
     <script src="js/index.js"></script>
     <script>
         function updateBuckitList() {
-            var output = "";
+            var output1 = "";
+            var output2 = "";
             for (i = 0; i < buckit.list.length; ++i) {
-                output += " <li> " + buckit.list[i].name + ", " + buckit.list[i].rating * 10 + " Points" + ' <button class="remove" id="' + i + '">Remove</button> </li> ';
-                $(".remove#" + i).click(function() {
-                    buckit.remove(buckit.list[i]);
-                    updateList();
-                });
+                place = buckit.list[i]
+                    var output = " <li> " + place.name + ", " + place.rating * 10 + " Points" + ' <button class="remove" id="' + i + '">Remove</button> </li> ';
+                    if (place.visited) {
+                        output2 += output;
+                    } else {
+                        output1 += output;
+                    }
+                    $(".remove#" + i).click(function() {
+                        buckit.remove(buckit.list[i]);
+                        updateList();
+                    });
             }
             $("#visit").html(output);
+            $("#visited").html(output2);
             for (i = 0; i < buckit.list.length; ++i) {
                 f = function(idx) {
                     buckit.remove(buckit.list[idx]);

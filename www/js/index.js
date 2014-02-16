@@ -2,11 +2,9 @@ var places;
 var buckit;
 var done;
 buckit = new PersistentList("buckit");
-done = new PersistentList("done");
 
 document.addEventListener("deviceready", function () {
     buckit = new PersistentList("buckit");
-    done = new PersistentList("done");
 }, false);
 
 
@@ -26,11 +24,12 @@ function getMap(distance) {
 function displayInfo(data) {
     var img = data.icon;
     var name = data.name;
+    var rating = data.rating * 10;
     var vac = data.vicinity;
     if (vac == undefined) {
         vac = data.formatted_address;
     }
-    var string = '<img src="' + img + '" height="50px" width="50px"><div id="loc-text"><span id="loc-name">' + name + '</span><br><span id="loc-vac">' + vac + '</span></div><button id="add">Add to my BuckitList</button><button onclick="window.plugins.socialsharing.shareViaFacebook(\'I\m planning on going to ' + name + '\', null, null, console.log(\'share ok\'), function(errormsg){alert(errormsg)})">Share this location</button><button id="cancel">Cancel</button>';
+    var string = '<div><img src="' + img + '" height="50px" width="50px"><div id="loc-text"><span id="loc-name">' + name + ',&nbsp;&nbsp;&nbsp; ' + rating + ' Points' + '</span><br><span id="loc-vac">' + vac + '</span></div></div><button id="add">Add to my BuckitList</button><button id="cancel">Cancel</button>';
     $('#current-location').html(string);
     $("#add").click(function () {
         buckit.add(data);
@@ -150,6 +149,7 @@ function PlaceList(lat, lon, r, search) {
         }
         
         for (i = 0; i < this.results.length; ++i) {
+            this.results[i].visited = false;
             if (this.results[i].rating === undefined) {
                 this.results[i].rating = Math.floor(Math.random() * (35 - 15) + 15);
             }
@@ -165,6 +165,22 @@ function PlaceList(lat, lon, r, search) {
     };
 
     this.refresh();
+}
+
+function checkVisited() {
+    var a1 = currentPosition.coords.latitude
+    var b1 = currentPosition.coords.longitude
+    for (i = 0; i < buckit.list.length; ++i) {
+        var a2 = buckit.list[i].geometry.location.lat
+        var b2 = buckit.list[i].geometry.location.lng
+        d = Math.sqrt(Math.pow(a1 - a2, 2) + Math.pow(b1 - b2, 2));
+        console.log(i + ": " + d);
+        if (d < 0.003) {
+            console.log("success");
+            buckit.list[i].visited = true;
+            buckit.dump();buckit.load();
+        }
+    }
 }
 
 var refreshed = 0;
