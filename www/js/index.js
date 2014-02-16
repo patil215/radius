@@ -10,6 +10,10 @@ document.addEventListener("deviceready", function() {
 
 
 function getMap(distance) {
+    var searchterm = $('#search-term').val();
+    if (searchterm == 'Cool Places'){
+        searchterm = '';   
+    }
     getLocation();
     var mapOptions = {
         center: new google.maps.LatLng(currentPosition.coords.latitude, currentPosition.coords.longitude),
