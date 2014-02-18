@@ -9,58 +9,61 @@ document.addEventListener("deviceready", function () {
 
 
 function getMap(distance) {
-    var searchterm = $('#search-term').val();
+    //Main function.
+    var searchterm = $('#search-term').val(); //Get the user's search term - Defualt is 'Cool Places'
 
-    getLocation();
-    var mapOptions = {
+    getLocation(); //Get the user's current GeoLocation
+    var mapOptions = { //Initalize the map options. ToDo: Set zoom to scale with distance.
         center: new google.maps.LatLng(currentPosition.coords.latitude, currentPosition.coords.longitude),
         zoom: 13
     };
-    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-    labelMap(map, distance, searchterm);
-    $('#current-location').html("Click on a marker to get more info about a location.");
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions); //Display map.
+    labelMap(map, distance, searchterm); //Get google places and place them on the map.
+    $('#current-location').html("Click on a marker to get more info about a location."); //Tell the user to click on a thing.
 }
 
 function displayInfo(data) {
-    var img = data.icon;
-    var name = data.name;
-    var rating = data.rating * 10;
-    var vac = data.vicinity;
+    var img = data.icon; //Set img to the place's icon
+    var name = data.name; //Set name to the place's name
+    var rating = Math.floor(data.rating * 10); //Set rating to score
+    var vac = data.vicinity; //Set vac to place's vainity
     if (vac == undefined) {
-        vac = data.formatted_address;
+        vac = data.formatted_address; //(Or fomatted address, for text search.)
     }
-    var string = '<div><img src="' + img + '" height="50px" width="50px"><div id="loc-text"><span id="loc-name">' + name + ',&nbsp;&nbsp;&nbsp; ' + rating + ' Points' + '</span><br><span id="loc-vac">' + vac + '</span></div></div><button id="add">Add to my BuckitList</button><button id="cancel">Cancel</button>';
-    $('#current-location').html(string);
+    var string = '<div><img src="' + img + '" height="50px" width="50px"><div id="loc-text"><span id="loc-name">' + name + ',&nbsp;&nbsp;&nbsp; ' + rating + ' Points' + '</span><br><span id="loc-vac">' + vac + '</span></div></div><button id="add">Add to my BuckitList</button><button id="cancel">Cancel</button>'; //Messy HTML using the information above.
+    $('#current-location').html(string); //Display it.
     $("#add").click(function () {
         buckit.add(data);
-        $('#current-location').html("");
+        $('#current-location').html(""); //Add to buckit list
     });
     $("#cancel").click(function () {
-        $('#current-location').html("");
+        $('#current-location').html(""); //Close the window
     });
 }
 
 
 function sizeBox() {
-    document.getElementById('search-term').size = document.getElementById('search-term').value.length + 3;
+    document.getElementById('search-term').size = document.getElementById('search-term').value.length + 3; //Dynamically size search box
 }
 
 function labelMap(map, distance, search) {
-    places = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance, search);
+    places = new PlaceList(currentPosition.coords.latitude, currentPosition.coords.longitude, distance, search); //Get places based on user location distance and search.
     console.log(places);
-    for (i = 0; i < places.results.length; ++i) {
-        place = places.results[i];
-        var latlon = new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng);
+    for (i = 0; i < places.results.length; ++i) { //Go through each place.
+        place = places.results[i]; //Select this place
+        var latlon = new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng); //Make a new marker object.
         var marker = new google.maps.Marker({
             position: latlon,
             title: place.name,
             map: map,
-        });
-        google.maps.event.addListener(marker, 'click', _.partial(displayInfo, place));
+        }); //Initalize it.
+        google.maps.event.addListener(marker, 'click', _.partial(displayInfo, place)); //Magic event tracking using lodash
     }
 }
 
 function PersistentList(name) {
+    //I have no idea what is going on here.
+    //Local storage to store a user's buckit list. May move to sever later.
     this.name = name;
     this.list = [];
     this.loads = function (string) {
@@ -94,6 +97,7 @@ function PersistentList(name) {
 }
 
 function PlaceList(lat, lon, r, search) {
+    //Get list of places within distance
     this.lat = lat;
     this.lon = lon;
     this.r = r;
@@ -105,7 +109,7 @@ function PlaceList(lat, lon, r, search) {
         var radius = "" + this.r;
         var key = "AIzaSyDeXYN2gBD6YUlIAEYOjSuKRQMbcuEPVOw";
         old_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?sensor=true&location=" + location + "&radius=" + radius + "&key=" + key;
-        if (search == 'Cool Places') {
+        if (search == 'Cool Places' || search == '') { //If defualt or blank, use nearby search
             $.ajax({
                 url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
                 async: false,
@@ -125,7 +129,7 @@ function PlaceList(lat, lon, r, search) {
                     console.log("AJAX Google Place API request failed");
                 },
             });
-        } else {
+        } else { //Else use text search.
             $.ajax({
                 url: "https://maps.googleapis.com/maps/api/place/textsearch/json",
                 async: false,
@@ -149,8 +153,8 @@ function PlaceList(lat, lon, r, search) {
         }
         
         for (i = 0; i < this.results.length; ++i) {
-            this.results[i].visited = false;
-            if (this.results[i].rating === undefined) {
+            this.results[i].visited = false; //Add a false visited.
+            if (this.results[i].rating === undefined) { //If google doesn't provide a rating - make one.
                 this.results[i].rating = Math.random() * (3.5 - 1.5) + 1.5;
             }
         }
@@ -167,7 +171,7 @@ function PlaceList(lat, lon, r, search) {
     this.refresh();
 }
 
-function checkVisited() {
+function checkVisited() { //Check if location has been visited. ToDo: loop.
     var a1 = currentPosition.coords.latitude
     var b1 = currentPosition.coords.longitude
     console.log(a1 + ', ' + b1);
@@ -185,7 +189,7 @@ function checkVisited() {
 }
 
 var refreshed = 0;
-var currentPosition = {
+var currentPosition = { //Defualt location is LA.
     coords: {
         latitude: 34.0500,
         longitude: -118.2500,
@@ -193,7 +197,7 @@ var currentPosition = {
     timetsamp: 0,
 }
 
-    function getLocation() {
+    function getLocation() { //Get the user's GeoLocation
         console.log("Device ready!");
         navigator.geolocation.getCurrentPosition(function (position) { // on success
             currentPosition = position;
@@ -205,5 +209,6 @@ var currentPosition = {
             console.log("message: " + error.message);
         });
     }
-document.addEventListener("deviceready", getLocation, false);
+
+document.addEventListener("deviceready", getLocation, false); //On ready, get user location.
 console.log("Waiting for device to be ready...");
