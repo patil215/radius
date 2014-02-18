@@ -5,7 +5,7 @@ function updateBuckitList() {
             for (i = 0; i < buckit.list.length; ++i) {
                 place = buckit.list[i]
                 var output = " <li> " + place.name + ", " + Math.floor(place.rating * 10) + " Points" + ' <button class="remove" id="' + i + '">Remove</button> </li> ';
-                if (place.visited) {
+                if (place.visited) { //If place has been visited.
                     output2 += output;
                     total += Math.floor(place.rating * 10);
                 } else {
@@ -24,7 +24,7 @@ function updateBuckitList() {
             $("#visited").html(output2);
             $("#total-score").html(total);
             for (i = 0; i < buckit.list.length; ++i) {
-                f = function(idx) {
+                f = function(idx) { //Confirm delete.
                     console.log(idx);
                     if (confirm("Delete '" + buckit.list[idx].name + "' from the list?")) {
                         buckit.remove(buckit.list[idx]);
